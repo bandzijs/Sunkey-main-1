@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Sun } from 'lucide-react';
+import { Sun, Grid3x3 } from 'lucide-react';
 import { cities } from '../data/cities';
 import { countries } from '../data/countries';
 
 interface LandingPageProps {
   onCalculate: () => void;
+  onShowMap: () => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ onCalculate }) => {
+export const LandingPage: React.FC<LandingPageProps> = ({ onCalculate, onShowMap }) => {
   const [birthDate, setBirthDate] = useState('');
   const [birthTime, setBirthTime] = useState('');
   const [birthCity, setBirthCity] = useState('');
@@ -113,7 +114,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onCalculate }) => {
           </button>
         </form>
 
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex justify-center gap-4">
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -122,6 +123,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onCalculate }) => {
             className="px-8 py-3 bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-white border border-slate-600 hover:border-slate-500 rounded-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
           >
             Explore the Wheel
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              onShowMap();
+            }}
+            className="px-8 py-3 bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-white border border-slate-600 hover:border-slate-500 rounded-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
+          >
+            <Grid3x3 className="w-5 h-5" />
+            Consciousness Map
           </button>
         </div>
 
