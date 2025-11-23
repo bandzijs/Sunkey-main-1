@@ -1,14 +1,14 @@
 import { Trigram } from './geneKeyTrigrams';
 
 export const trigramColors: Record<Trigram, string> = {
-  Heaven: "#E8F4F8",
-  Earth: "#E8D5E8",
-  Water: "#A8D5F5",
-  Fire: "#F5C5C0",
-  Thunder: "#B5E5E5",
-  Mountain: "#D5E5D5",
-  Wind: "#F5F5B8",
-  Lake: "#FFF8D8"
+  Heaven: "#FFFFFF",
+  Earth: "#000000",
+  Water: "#003366",
+  Fire: "#CC0000",
+  Thunder: "#008B8B",
+  Mountain: "#0B3B2E",
+  Wind: "#228B22",
+  Lake: "#FFF5CC"
 };
 
 export const trigramRoots: Record<Trigram, number> = {
