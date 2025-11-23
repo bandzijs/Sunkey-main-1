@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronUp, Plus, ArrowRight } from 'lucide-react';
+import { ChevronUp, Plus, ArrowRight, Layers } from 'lucide-react';
 import { geneKeys } from '../data/geneKeys';
 import { trigramRoots, trigramColors } from '../data/trigramColors';
 import { TrigramPair } from '../data/geneKeyTrigrams';
@@ -38,6 +38,52 @@ export const RootsView: React.FC<RootsViewProps> = ({ geneKey, trigrams, onBack 
         <p className="text-slate-400 text-lg">
           Understanding the composition through its trigram foundations
         </p>
+      </div>
+
+      <div className="max-w-2xl mx-auto backdrop-blur-sm bg-white/5 p-8 rounded-2xl border border-white/10">
+        <h3 className="text-xl font-light text-white mb-6 flex items-center gap-2">
+          <Layers className="w-5 h-5" />
+          Hexagram Structure
+        </h3>
+
+        <div className="space-y-6">
+          <div className="flex items-center justify-center gap-8">
+            <div className="text-center">
+              <div className="text-sm text-slate-400 mb-2">Upper Trigram (Outer)</div>
+              <div className="flex items-center gap-3 backdrop-blur-sm bg-white/5 p-4 rounded-xl border border-white/10">
+                <div
+                  className="w-6 h-6 rounded-lg border border-white/20"
+                  style={{ backgroundColor: topColor }}
+                ></div>
+                <div className="text-left">
+                  <div className="text-white font-medium">{trigrams.top}</div>
+                  <div className="text-xs text-slate-400">GK {rootGKA}</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-2xl text-slate-600">over</div>
+
+            <div className="text-center">
+              <div className="text-sm text-slate-400 mb-2">Lower Trigram (Inner)</div>
+              <div className="flex items-center gap-3 backdrop-blur-sm bg-white/5 p-4 rounded-xl border border-white/10">
+                <div
+                  className="w-6 h-6 rounded-lg border border-white/20"
+                  style={{ backgroundColor: bottomColor }}
+                ></div>
+                <div className="text-left">
+                  <div className="text-white font-medium">{trigrams.bottom}</div>
+                  <div className="text-xs text-slate-400">GK {rootGKB}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center text-slate-400 text-sm pt-4 border-t border-white/10">
+            The hexagram is read from bottom to top: {trigrams.bottom} (inner/lower) forms the foundation,
+            with {trigrams.top} (outer/upper) building upon it
+          </div>
+        </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -109,35 +155,50 @@ export const RootsView: React.FC<RootsViewProps> = ({ geneKey, trigrams, onBack 
 
         <div className="space-y-6">
           <div className="backdrop-blur-sm bg-red-950/10 p-6 rounded-xl border border-red-900/20">
-            <div className="flex flex-wrap items-center gap-3 text-lg">
-              <span className="text-red-400 font-medium">Shadow:</span>
-              <span className="text-slate-300">{rootDataA.shadow}</span>
-              <Plus className="w-5 h-5 text-slate-500" />
-              <span className="text-slate-300">{rootDataB.shadow}</span>
-              <ArrowRight className="w-5 h-5 text-slate-500" />
-              <span className="text-white font-medium">{selectedData.shadow}</span>
+            <div className="mb-4">
+              <span className="text-red-400 font-medium text-xl">Shadow: {selectedData.shadow}</span>
+            </div>
+            <div className="space-y-3 pl-4 border-l-2 border-red-900/30">
+              <div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Inner ({trigrams.bottom})</div>
+                <div className="text-slate-300">{rootDataB.shadow}</div>
+              </div>
+              <div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Outer ({trigrams.top})</div>
+                <div className="text-slate-300">{rootDataA.shadow}</div>
+              </div>
             </div>
           </div>
 
           <div className="backdrop-blur-sm bg-emerald-950/10 p-6 rounded-xl border border-emerald-900/20">
-            <div className="flex flex-wrap items-center gap-3 text-lg">
-              <span className="text-emerald-400 font-medium">Gift:</span>
-              <span className="text-slate-300">{rootDataA.gift}</span>
-              <Plus className="w-5 h-5 text-slate-500" />
-              <span className="text-slate-300">{rootDataB.gift}</span>
-              <ArrowRight className="w-5 h-5 text-slate-500" />
-              <span className="text-white font-medium">{selectedData.gift}</span>
+            <div className="mb-4">
+              <span className="text-emerald-400 font-medium text-xl">Gift: {selectedData.gift}</span>
+            </div>
+            <div className="space-y-3 pl-4 border-l-2 border-emerald-900/30">
+              <div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Inner ({trigrams.bottom})</div>
+                <div className="text-slate-300">{rootDataB.gift}</div>
+              </div>
+              <div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Outer ({trigrams.top})</div>
+                <div className="text-slate-300">{rootDataA.gift}</div>
+              </div>
             </div>
           </div>
 
           <div className="backdrop-blur-sm bg-amber-950/10 p-6 rounded-xl border border-amber-900/20">
-            <div className="flex flex-wrap items-center gap-3 text-lg">
-              <span className="text-amber-400 font-medium">Siddhi:</span>
-              <span className="text-slate-300">{rootDataA.siddhi}</span>
-              <Plus className="w-5 h-5 text-slate-500" />
-              <span className="text-slate-300">{rootDataB.siddhi}</span>
-              <ArrowRight className="w-5 h-5 text-slate-500" />
-              <span className="text-white font-medium">{selectedData.siddhi}</span>
+            <div className="mb-4">
+              <span className="text-amber-400 font-medium text-xl">Siddhi: {selectedData.siddhi}</span>
+            </div>
+            <div className="space-y-3 pl-4 border-l-2 border-amber-900/30">
+              <div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Inner ({trigrams.bottom})</div>
+                <div className="text-slate-300">{rootDataB.siddhi}</div>
+              </div>
+              <div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Outer ({trigrams.top})</div>
+                <div className="text-slate-300">{rootDataA.siddhi}</div>
+              </div>
             </div>
           </div>
         </div>
