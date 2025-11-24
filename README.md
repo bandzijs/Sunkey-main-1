@@ -82,6 +82,25 @@ npm run typecheck
 - Birth data is collected but not yet used for calculations
 - All Gene Key data includes authentic I-Ching trigram associations
 
+## Contributing
+
+We welcome contributions! Please see our collaboration guides:
+
+- **[Quick Start Guide](QUICK_START.md)** - Get started in 5 minutes
+- **[Full Collaboration Guide](COLLABORATION_GUIDE.md)** - Complete step-by-step instructions
+- **[Contributing Guidelines](CONTRIBUTING.md)** - Code standards and best practices
+- **[GitHub Setup](SETUP_GITHUB.md)** - Repository setup instructions
+
+### Quick Start for Contributors
+
+1. Clone the repository: `git clone https://github.com/OWNER/SunKey.git`
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Make your changes
+4. Run tests: `npm run typecheck && npm run lint`
+5. Commit your changes: `git commit -m "feat: add your feature"`
+6. Push your branch: `git push origin feature/your-feature-name`
+7. Open a Pull Request on GitHub
+
 ## Future Enhancements
 
 Potential features for full implementation:
@@ -90,3 +109,11 @@ Potential features for full implementation:
 - Complete hologenetic profile (not just Sun position)
 - User accounts and saved readings
 - Share results functionality
+
+## License
+
+This project is private and proprietary.
+
+## Support
+
+For questions, issues, or feature requests, please open an issue on GitHub.

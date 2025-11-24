@@ -1,7 +1,12 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "sunkey",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Gene Keys Visualization - Interactive mandala wheel with I-Ching trigram associations",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ingapriedite-droid/SunKey.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",

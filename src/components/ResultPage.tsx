@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ArrowLeft, ChevronDown } from 'lucide-react';
 import { geneKeys } from '../data/geneKeys';
 import { geneKeyTrigrams } from '../data/geneKeyTrigrams';
-import { trigramColors, trigramRoots } from '../data/trigramColors';
+import { trigramColors } from '../data/trigramColors';
 import { GeneKeyWheel } from './GeneKeyWheel';
 import { RootsView } from './RootsView';
 
