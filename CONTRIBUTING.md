@@ -22,7 +22,7 @@ Thank you for your interest in contributing to SunKey! This document provides gu
 
 3. **Add the upstream remote**:
    ```bash
-   git remote add upstream https://github.com/ingapriedite-droid/SunKey.git
+   git remote add upstream https://github.com/bandzijs/Sunkey-main-1.git
    ```
 
 4. **Install dependencies**:

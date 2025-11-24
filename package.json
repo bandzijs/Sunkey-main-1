@@ -5,7 +5,7 @@
   "description": "Gene Keys Visualization - Interactive mandala wheel with I-Ching trigram associations",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ingapriedite-droid/SunKey.git"
+    "url": "https://github.com/bandzijs/Sunkey-main-1.git"
   },
   "type": "module",
   "scripts": {
