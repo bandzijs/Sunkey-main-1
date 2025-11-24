@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { Sun, Grid3x3 } from 'lucide-react';
 import { cities } from '../data/cities';
 import { countries } from '../data/countries';
+import { Navbar } from './Navbar';
+import { Footer } from './Footer';
 
 interface LandingPageProps {
   onCalculate: () => void;
   onShowMap: () => void;
+  onHome: () => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ onCalculate, onShowMap }) => {
+export const LandingPage: React.FC<LandingPageProps> = ({ onCalculate, onShowMap, onHome }) => {
   const [birthDate, setBirthDate] = useState('');
   const [birthTime, setBirthTime] = useState('');
   const [birthCity, setBirthCity] = useState('');
@@ -19,8 +22,24 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onCalculate, onShowMap
     onCalculate();
   };
 
+  const handleHome = () => {
+    // Reset form fields
+    setBirthDate('');
+    setBirthTime('');
+    setBirthCity('');
+    setBirthCountry('');
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Call parent handler
+    onHome();
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen">
+      <Navbar onHome={handleHome} onShowMap={onShowMap} onCalculate={onCalculate} />
+
+      {/* Main Content with padding for navbar */}
+      <div className="pt-16 min-h-screen flex items-center justify-center px-4 py-12">
       <div className="max-w-2xl w-full">
         <div className="text-center mb-12 animate-fade-in">
           <div className="flex justify-center mb-6">
@@ -137,10 +156,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onCalculate, onShowMap
           </button>
         </div>
 
-        <div className="mt-8 text-center text-slate-500 text-xs">
-          This is a demonstration prototype for educational purposes
-        </div>
       </div>
+      </div>
+
+      <Footer onHome={handleHome} onShowMap={onShowMap} onCalculate={onCalculate} />
     </div>
   );
 };

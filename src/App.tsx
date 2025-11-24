@@ -98,13 +98,13 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {currentView === 'landing' && (
-        <LandingPage onCalculate={handleCalculate} onShowMap={handleShowMap} />
+        <LandingPage onCalculate={handleCalculate} onShowMap={handleShowMap} onHome={handleReset} />
       )}
       {currentView === 'result' && selectedGK !== null && (
-        <ResultPage geneKey={selectedGK} onReset={handleReset} />
+        <ResultPage geneKey={selectedGK} onReset={handleReset} onShowMap={handleShowMap} onCalculate={handleCalculate} />
       )}
       {currentView === 'map' && (
-        <ConsciousnessMap onBack={handleReset} onSelectGeneKey={handleSelectFromMap} />
+        <ConsciousnessMap onBack={handleReset} onSelectGeneKey={handleSelectFromMap} onShowMap={handleShowMap} onCalculate={handleCalculate} />
       )}
     </div>
   );

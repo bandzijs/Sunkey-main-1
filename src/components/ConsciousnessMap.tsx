@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { ChevronLeft, Grid3x3 } from 'lucide-react';
 import { geneKeys } from '../data/geneKeys';
+import { Navbar } from './Navbar';
+import { Footer } from './Footer';
 
 interface ConsciousnessMapProps {
   onBack: () => void;
   onSelectGeneKey: (geneKey: number) => void;
+  onShowMap: () => void;
+  onCalculate: () => void;
 }
 
-export const ConsciousnessMap: React.FC<ConsciousnessMapProps> = ({ onBack, onSelectGeneKey }) => {
+export const ConsciousnessMap: React.FC<ConsciousnessMapProps> = ({ onBack, onSelectGeneKey, onShowMap, onCalculate }) => {
   const [selectedKey, setSelectedKey] = useState<number | null>(null);
 
   const handleKeyClick = (keyNumber: number) => {
@@ -21,14 +25,17 @@ export const ConsciousnessMap: React.FC<ConsciousnessMapProps> = ({ onBack, onSe
   };
 
   return (
-    <div className="space-y-8 animate-fade-in">
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group"
-      >
-        <ChevronLeft className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" />
-        <span>Back</span>
-      </button>
+    <div className="min-h-screen">
+      <Navbar onHome={onBack} onShowMap={onShowMap} onCalculate={onCalculate} />
+      <div className="pt-16 min-h-screen px-4 py-12">
+        <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group"
+          >
+            <ChevronLeft className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" />
+            <span>Back</span>
+          </button>
 
       <div className="text-center">
         <h2 className="text-4xl font-light text-white mb-4 flex items-center justify-center gap-3">
@@ -106,7 +113,10 @@ export const ConsciousnessMap: React.FC<ConsciousnessMapProps> = ({ onBack, onSe
             </button>
           </div>
         </div>
-      )}
+        )}
+        </div>
+      </div>
+      <Footer onHome={onBack} onShowMap={onShowMap} onCalculate={onCalculate} />
     </div>
   );
 };

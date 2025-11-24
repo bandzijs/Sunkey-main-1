@@ -5,13 +5,17 @@ import { geneKeyTrigrams } from '../data/geneKeyTrigrams';
 import { trigramColors } from '../data/trigramColors';
 import { GeneKeyWheel } from './GeneKeyWheel';
 import { RootsView } from './RootsView';
+import { Navbar } from './Navbar';
+import { Footer } from './Footer';
 
 interface ResultPageProps {
   geneKey: number;
   onReset: () => void;
+  onShowMap: () => void;
+  onCalculate: () => void;
 }
 
-export const ResultPage: React.FC<ResultPageProps> = ({ geneKey, onReset }) => {
+export const ResultPage: React.FC<ResultPageProps> = ({ geneKey, onReset, onShowMap, onCalculate }) => {
   const [showRoots, setShowRoots] = useState(false);
   const [selectedGeneKey, setSelectedGeneKey] = useState(geneKey);
 
@@ -26,8 +30,10 @@ export const ResultPage: React.FC<ResultPageProps> = ({ geneKey, onReset }) => {
   };
 
   return (
-    <div className="min-h-screen px-4 py-12">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen">
+      <Navbar onHome={onReset} onShowMap={onShowMap} onCalculate={onCalculate} />
+      <div className="pt-16 min-h-screen px-4 py-12">
+        <div className="max-w-6xl mx-auto">
         <button
           onClick={onReset}
           className="mb-8 flex items-center gap-2 text-slate-400 hover:text-white transition-colors group"
@@ -124,7 +130,9 @@ export const ResultPage: React.FC<ResultPageProps> = ({ geneKey, onReset }) => {
             />
           </div>
         )}
+        </div>
       </div>
+      <Footer onHome={onReset} onShowMap={onShowMap} onCalculate={onCalculate} />
     </div>
   );
 };
