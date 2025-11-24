@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { LandingPage } from './components/LandingPage';
+import { GetMySunKey } from './components/GetMySunKey';
 import { ResultPage } from './components/ResultPage';
 import { ConsciousnessMap } from './components/ConsciousnessMap';
 import { geneKeyOrder } from './data/geneKeyOrder';
 
-type View = 'landing' | 'result' | 'map';
+type View = 'landing' | 'get-my-sunkey' | 'result' | 'map';
 
 // Helper functions to parse URL
 const getViewFromUrl = (): View => {
   const hash = window.location.hash.slice(1);
   if (hash === 'map') return 'map';
+  if (hash === 'get-my-sunkey') return 'get-my-sunkey';
   if (hash.startsWith('result')) {
     const match = hash.match(/result-(\d+)/);
     if (match) {
@@ -45,6 +47,8 @@ function App() {
 
     if (currentView === 'landing') {
       targetHash = '';
+    } else if (currentView === 'get-my-sunkey') {
+      targetHash = 'get-my-sunkey';
     } else if (currentView === 'map') {
       targetHash = 'map';
     } else if (currentView === 'result' && selectedGK !== null) {
@@ -90,6 +94,10 @@ function App() {
     setCurrentView('map');
   };
 
+  const handleGetMySunKey = () => {
+    setCurrentView('get-my-sunkey');
+  };
+
   const handleSelectFromMap = (geneKey: number) => {
     setSelectedGK(geneKey);
     setCurrentView('result');
@@ -98,7 +106,10 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {currentView === 'landing' && (
-        <LandingPage onCalculate={handleCalculate} onShowMap={handleShowMap} onHome={handleReset} />
+        <LandingPage onCalculate={handleCalculate} onShowMap={handleShowMap} onHome={handleReset} onGetMySunKey={handleGetMySunKey} />
+      )}
+      {currentView === 'get-my-sunkey' && (
+        <GetMySunKey onCalculate={handleCalculate} onShowMap={handleShowMap} onHome={handleReset} />
       )}
       {currentView === 'result' && selectedGK !== null && (
         <ResultPage geneKey={selectedGK} onReset={handleReset} onShowMap={handleShowMap} onCalculate={handleCalculate} />
