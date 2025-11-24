@@ -93,7 +93,7 @@ We welcome contributions! Please see our collaboration guides:
 
 ### Quick Start for Contributors
 
-1. Clone the repository: `git clone https://github.com/OWNER/SunKey.git`
+1. Clone the repository: `git clone https://github.com/bandzijs/Sunkey-main-1.git`
 2. Create a feature branch: `git checkout -b feature/your-feature-name`
 3. Make your changes
 4. Run tests: `npm run typecheck && npm run lint`
