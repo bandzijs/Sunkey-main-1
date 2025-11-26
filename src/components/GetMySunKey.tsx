@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
 import { cities } from '../data/cities';
 import { countries } from '../data/countries';
+import { getCityCoordinates } from '../data/city-coordinates';
+import { calculateGeneKey } from '../utils/astronomy-calculator';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 
+export interface BirthDataResult {
+  geneKey: number;
+  sunLongitude: number;
+  sunSign: string;
+  birthDate: string;
+  birthTime: string;
+  birthCity: string;
+  birthCountry: string;
+  latitude: number;
+  longitude: number;
+}
+
 interface GetMySunKeyProps {
-  onCalculate: () => void;
+  onCalculate: (geneKey?: number, birthData?: BirthDataResult) => void;
   onShowMap: () => void;
   onHome: () => void;
 }
@@ -15,10 +29,55 @@ export const GetMySunKey: React.FC<GetMySunKeyProps> = ({ onCalculate, onShowMap
   const [birthTime, setBirthTime] = useState('');
   const [birthCity, setBirthCity] = useState('');
   const [birthCountry, setBirthCountry] = useState('');
+  const [isCalculating, setIsCalculating] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onCalculate();
+    setError('');
+    setIsCalculating(true);
+
+    try {
+      // Get city coordinates
+      const [latitude, longitude] = getCityCoordinates(birthCity);
+
+      if (latitude === 0 && longitude === 0) {
+        setError('City coordinates not found. Please select a different city.');
+        setIsCalculating(false);
+        return;
+      }
+
+      // Calculate Gene Key using astronomy
+      const result = calculateGeneKey({
+        date: birthDate,
+        time: birthTime,
+        latitude,
+        longitude
+      });
+
+      console.log('Astronomy calculation result:', result);
+
+      // Prepare birth data result
+      const birthDataResult: BirthDataResult = {
+        geneKey: result.geneKey,
+        sunLongitude: result.sunLongitude,
+        sunSign: result.sunSign,
+        birthDate,
+        birthTime,
+        birthCity,
+        birthCountry,
+        latitude,
+        longitude
+      };
+
+      // Pass the calculated Gene Key and birth data to parent
+      onCalculate(result.geneKey, birthDataResult);
+    } catch (err) {
+      console.error('Error calculating Gene Key:', err);
+      setError('An error occurred during calculation. Please try again.');
+    } finally {
+      setIsCalculating(false);
+    }
   };
 
   const handleHome = () => {
@@ -117,11 +176,18 @@ export const GetMySunKey: React.FC<GetMySunKeyProps> = ({ onCalculate, onShowMap
               </select>
             </div>
 
+            {error && (
+              <div className="p-4 bg-red-500/10 border border-red-500/50 rounded-lg text-red-300 text-sm">
+                {error}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-900 font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-amber-500/50 transform hover:scale-[1.02] active:scale-[0.98]"
+              disabled={isCalculating}
+              className="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-900 font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-amber-500/50 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
-              Find my SunKey
+              {isCalculating ? 'Calculating...' : 'Find my SunKey'}
             </button>
           </form>
         </div>

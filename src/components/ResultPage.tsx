@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ChevronDown } from 'lucide-react';
+import { ArrowLeft, ChevronDown, MapPin, Calendar, Clock, Globe } from 'lucide-react';
 import { geneKeys } from '../data/geneKeys';
 import { geneKeyTrigrams } from '../data/geneKeyTrigrams';
 import { trigramColors } from '../data/trigramColors';
@@ -7,15 +7,17 @@ import { GeneKeyWheel } from './GeneKeyWheel';
 import { RootsView } from './RootsView';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { BirthDataResult } from './GetMySunKey';
 
 interface ResultPageProps {
   geneKey: number;
+  birthData?: BirthDataResult | null;
   onReset: () => void;
   onShowMap: () => void;
-  onCalculate: () => void;
+  onCalculate: (geneKey?: number) => void;
 }
 
-export const ResultPage: React.FC<ResultPageProps> = ({ geneKey, onReset, onShowMap, onCalculate }) => {
+export const ResultPage: React.FC<ResultPageProps> = ({ geneKey, birthData, onReset, onShowMap, onCalculate }) => {
   const [showRoots, setShowRoots] = useState(false);
   const [selectedGeneKey, setSelectedGeneKey] = useState(geneKey);
 
@@ -70,7 +72,65 @@ export const ResultPage: React.FC<ResultPageProps> = ({ geneKey, onReset, onShow
               </div>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center items-start gap-8">
+              {/* Astronomical Data Panel - Left Side */}
+              {birthData && (
+                <div className="backdrop-blur-sm bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 w-80 space-y-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Globe className="w-5 h-5 text-amber-400" />
+                    <h3 className="text-lg font-medium text-white">Astronomical Data</h3>
+                  </div>
+                  
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-start gap-3">
+                      <Calendar className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <div className="text-slate-400">Birth Date</div>
+                        <div className="text-white font-medium">{new Date(birthData.birthDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3">
+                      <Clock className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <div className="text-slate-400">Birth Time</div>
+                        <div className="text-white font-medium">{birthData.birthTime}</div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <div className="text-slate-400">Location</div>
+                        <div className="text-white font-medium">{birthData.birthCity}, {birthData.birthCountry}</div>
+                        <div className="text-slate-500 text-xs mt-1">
+                          {birthData.latitude.toFixed(4)}°N, {birthData.longitude.toFixed(4)}°E
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="border-t border-slate-700 pt-3 mt-4">
+                      <div className="text-slate-400 mb-2">Sun Position</div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">Zodiac Sign</span>
+                          <span className="text-amber-400 font-medium">{birthData.sunSign}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">Ecliptic Longitude</span>
+                          <span className="text-white font-mono">{birthData.sunLongitude.toFixed(2)}°</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-400">Gene Key</span>
+                          <span className="text-amber-400 font-bold text-lg">{birthData.geneKey}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {/* Gene Key Wheel */}
               <GeneKeyWheel selectedGeneKey={selectedGeneKey} onGeneKeyClick={handleGeneKeyClick} />
             </div>
 

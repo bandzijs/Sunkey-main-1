@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { LandingPage } from './components/LandingPage';
-import { GetMySunKey } from './components/GetMySunKey';
+import { GetMySunKey, BirthDataResult } from './components/GetMySunKey';
 import { ResultPage } from './components/ResultPage';
 import { ConsciousnessMap } from './components/ConsciousnessMap';
 import { geneKeyOrder } from './data/geneKeyOrder';
@@ -39,6 +39,7 @@ const getGeneKeyFromUrl = (): number | null => {
 function App() {
   const [selectedGK, setSelectedGK] = useState<number | null>(() => getGeneKeyFromUrl());
   const [currentView, setCurrentView] = useState<View>(() => getViewFromUrl());
+  const [birthData, setBirthData] = useState<BirthDataResult | null>(null);
 
   // Sync URL with state changes (only when state actually changes)
   useEffect(() => {
@@ -78,10 +79,18 @@ function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const handleCalculate = () => {
-    const randomIndex = Math.floor(Math.random() * 64);
-    const gk = geneKeyOrder[randomIndex];
-    setSelectedGK(gk);
+  const handleCalculate = (geneKey?: number, birthDataResult?: BirthDataResult) => {
+    if (geneKey) {
+      // Use the calculated Gene Key from birth data
+      setSelectedGK(geneKey);
+      setBirthData(birthDataResult || null);
+    } else {
+      // Random selection for "Explore the Wheel" feature
+      const randomIndex = Math.floor(Math.random() * 64);
+      const gk = geneKeyOrder[randomIndex];
+      setSelectedGK(gk);
+      setBirthData(null); // Clear birth data for random selection
+    }
     setCurrentView('result');
   };
 
@@ -112,7 +121,7 @@ function App() {
         <GetMySunKey onCalculate={handleCalculate} onShowMap={handleShowMap} onHome={handleReset} />
       )}
       {currentView === 'result' && selectedGK !== null && (
-        <ResultPage geneKey={selectedGK} onReset={handleReset} onShowMap={handleShowMap} onCalculate={handleCalculate} />
+        <ResultPage geneKey={selectedGK} birthData={birthData} onReset={handleReset} onShowMap={handleShowMap} onCalculate={handleCalculate} />
       )}
       {currentView === 'map' && (
         <ConsciousnessMap onBack={handleReset} onSelectGeneKey={handleSelectFromMap} onShowMap={handleShowMap} onCalculate={handleCalculate} />

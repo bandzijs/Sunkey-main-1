@@ -8,7 +8,7 @@ interface ConsciousnessMapProps {
   onBack: () => void;
   onSelectGeneKey: (geneKey: number) => void;
   onShowMap: () => void;
-  onCalculate: () => void;
+  onCalculate: (geneKey?: number) => void;
 }
 
 export const ConsciousnessMap: React.FC<ConsciousnessMapProps> = ({ onBack, onSelectGeneKey, onShowMap, onCalculate }) => {

@@ -4,7 +4,7 @@ import { Sun, Grid3x3, Home } from 'lucide-react';
 interface NavbarProps {
   onHome: () => void;
   onShowMap: () => void;
-  onCalculate: () => void;
+  onCalculate: (geneKey?: number) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onHome, onShowMap, onCalculate }) => {

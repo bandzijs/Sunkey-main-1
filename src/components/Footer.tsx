@@ -4,7 +4,7 @@ import { Sun, Github, ExternalLink } from 'lucide-react';
 interface FooterProps {
   onHome: () => void;
   onShowMap: () => void;
-  onCalculate: () => void;
+  onCalculate: (geneKey?: number) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onHome, onShowMap, onCalculate }) => {

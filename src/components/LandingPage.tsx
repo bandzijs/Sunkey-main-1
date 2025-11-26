@@ -4,7 +4,7 @@ import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 
 interface LandingPageProps {
-  onCalculate: () => void;
+  onCalculate: (geneKey?: number) => void;
   onShowMap: () => void;
   onHome: () => void;
   onGetMySunKey: () => void;
